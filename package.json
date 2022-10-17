@@ -2,10 +2,11 @@
   "name": "legv8-language-support",
   "displayName": "LEGv8 Language Support",
   "description": "LEGv8 Language Support",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.72.0"
   },
+  "publisher": "patrickdemers6",
   "categories": [
     "Programming Languages"
   ],
@@ -13,16 +14,25 @@
     "url": "https://github.com/patrickdemers6/legv8-language-support"
   },
   "contributes": {
-    "languages": [{
-      "id": "legv8",
-      "aliases": ["LEGv8", "legv8"],
-      "extensions": [".legv8"],
-      "configuration": "./language-configuration.json"
-    }],
-    "grammars": [{
-      "language": "legv8",
-      "scopeName": "source.legv8",
-      "path": "./syntaxes/legv8.tmLanguage.json"
-    }]
+    "languages": [
+      {
+        "id": "legv8",
+        "aliases": [
+          "LEGv8",
+          "legv8"
+        ],
+        "extensions": [
+          ".legv8"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "legv8",
+        "scopeName": "source.legv8",
+        "path": "./syntaxes/legv8.tmLanguage.json"
+      }
+    ]
   }
 }

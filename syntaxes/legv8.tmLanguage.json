@@ -50,7 +50,7 @@
 			}]
 		},
 		"branch": {
-			"begin": "\\b^B\\.(EQ|NE|HS|LO|MI|PL|VS|VC|HI|LS|GE|LT|GT|LE)?\\b",
+			"begin": "\\b^((B\\.(EQ|NE|HS|LO|MI|PL|VS|VC|HI|LS|GE|LT|GT|LE)?)|(BL)|(B))\\b",
 			"end": "$",
 			"beginCaptures": {"0": {"name": "keyword.control.legv8"}},
 			"patterns": [{"include": "#branchLabel"}, {"include": "#comment"}]
