@@ -43,7 +43,7 @@
 		},
 		"op": {
 			"patterns": [{
-				"begin": "\\b^(ADD|ADDI|ADDIS|ADDIS|AND|ANDI|ANDIS|BR|EOR|EORI|LDUR|LDURB|LDURH|LDURSW|LDXR|LSL|LSR|MOVK|MOVZ|ORR|ORRI|STUR|STURB|STURH|STURW|STXR|SUB|SUBI|SUBIS|SUBS|FADDS|FADDD|FCMPS|FCMPD|FDIVS|FDIVD|FMULS|FMULD|FSUBS|FSUBD|LDURS|LDURD|MUL|SDIV|SMULH|STURS|STURD|UDIV|UMULH|DUMP|PRNT|HALT)\\b",
+				"begin": "\\b^(ADD|ADDI|ADDIS|ADDIS|AND|ANDI|ANDIS|BR|EOR|EORI|LDUR|LDURB|LDURH|LDURSW|LDXR|LSL|LSR|MOVK|MOVZ|ORR|ORRI|STUR|STURB|STURH|STURW|STXR|SUB|SUBI|SUBIS|SUBS|FADDS|FADDD|FCMPS|FCMPD|FDIVS|FDIVD|FMULS|FMULD|FSUBS|FSUBD|LDURS|LDURD|MUL|SDIV|SMULH|STURS|STURD|UDIV|UMULH|DUMP|PRNT|HALT|PRNL)\\b",
 				"end": "$",
 				"beginCaptures": {"0": {"name": "keyword.control.legv8"}},
 				"patterns": [{"include": "#registers"}, {"include": "#literal"}, {"include": "#comment"}]
@@ -63,11 +63,11 @@
 		},
 		"label": {
 			"name": "entity.name.tag",
-			"match": "\\b^([a-z]|[A-Z]|_)+:$"
+			"match": "\\b^([a-z]|[A-Z]|_|[0-9])+:$"
 		},
 		"branchLabel": {
 			"name": "entity.name.tag",
-			"match": "\\b([a-z]|[A-Z]|_)+\\b"
+			"match": "\\b([a-z]|[A-Z]|_|[0-9])+\\b"
 		},
 		"comment": {
 			"name": "comment.legv8",
