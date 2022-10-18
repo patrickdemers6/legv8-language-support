@@ -2,7 +2,7 @@
   "name": "legv8-language-support",
   "displayName": "LEGv8 Language Support",
   "description": "LEGv8 Language Support",
-  "version": "0.0.3",
+  "version": "0.1.6",
   "engines": {
     "vscode": "^1.72.0"
   },
@@ -10,6 +10,18 @@
   "categories": [
     "Programming Languages"
   ],
+  "activationEvents": [
+    "onLanguage:legv8"
+  ],
+  "scripts": {
+    "vscode:prepublish": "npm run esbuild-base -- --minify",
+    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --external:vscode --format=cjs --platform=node",
+    "esbuild": "npm run esbuild-base -- --sourcemap",
+    "esbuild-watch": "npm run esbuild-base -- --sourcemap --watch",
+    "test-compile": "tsc -p ./",
+    "lint": "eslint src --ext ts"
+  },
+  "main": "./out/extension.js",
   "repository": {
     "url": "https://github.com/patrickdemers6/legv8-language-support"
   },
@@ -34,5 +46,16 @@
         "path": "./syntaxes/legv8.tmLanguage.json"
       }
     ]
+  },
+  "dependencies": {
+    "mz": "^2.7.0",
+    "url": "^0.11.0",
+    "vscode-languageclient": "^8.0.2"
+  },
+  "devDependencies": {
+    "@types/mz": "^2.7.4",
+    "@types/vscode": "^1.72.0",
+    "esbuild": "^0.15.11",
+    "path": "^0.12.7"
   }
 }
