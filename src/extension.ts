@@ -3,14 +3,27 @@ import * as url from 'url'
 import * as vscode from 'vscode'
 import {LanguageClient, LanguageClientOptions, RevealOutputChannelOn, StreamInfo } from 'vscode-languageclient/node'
 
-export async function activate(context: vscode.ExtensionContext): Promise<void> {
-    const executablePath = vscode.extensions.getExtension("patrickdemers6.legv8-language-support")?.extensionUri.path + "/out/server";
+const MAC_OS: string = "darwin";
+const WINDOWS_OS: string = "win32";
+const LINUX_OS: string = "linux";
 
+const fileNames: {[key: string]: string} = {
+    [MAC_OS]: "server.mac",
+    [LINUX_OS]: "server.linux",
+    [WINDOWS_OS]: "server.exe",
+}
+
+export async function activate(context: vscode.ExtensionContext): Promise<void> {
+    const projectUri = vscode.extensions.getExtension("patrickdemers6.legv8-language-support")?.extensionUri;
+    if (!projectUri)
+        return;
+
+    let executablePath = vscode.Uri.joinPath(projectUri, `/out/${fileNames[process.platform] || fileNames[LINUX_OS]}`).fsPath;
+    
     let client: LanguageClient
 
     const serverOptions = () =>
         new Promise<ChildProcess | StreamInfo>((resolve, reject) => {
-            // vscode.Uri.file()
                 const childProcess = spawn(executablePath)
                 resolve({writer: childProcess.stdin, reader: childProcess.stdout})
             })

@@ -2,7 +2,7 @@
   "name": "legv8-language-support",
   "displayName": "LEGv8 Language Support",
   "description": "LEGv8 Language Support",
-  "version": "0.1.6",
+  "version": "0.1.8",
   "engines": {
     "vscode": "^1.72.0"
   },
