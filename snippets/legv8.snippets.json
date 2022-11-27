@@ -2,27 +2,27 @@
   "set register": {
     "prefix": "sreg",
     "body": ["ADD ${1:Rd}, XZR, ${2:Rm}", "$3"],
-    "description": "R[1] = R[2]. Set one register (Rd) to the value of another (Rm)."
+    "description": "R[Rd] = R[Rm]. Set one register (Rd) to the value of another (Rm)."
   },
   "increment register (immediate)": {
     "prefix": "addi",
-    "body": ["ADDI ${1:Rd}, ${1}, #${2:Imt}", "$3"],
-    "description": "R[1] = R[1] + R[2] Increment one register (Rd) with the value (in bits) of the immediate (Imt)"
+    "body": ["ADDI ${1:Rd}, ${1}, #${2:Imm}", "$3"],
+    "description": "R[Rd] = R[Rd] + Imm Increment one register (Rd) with the value (in bits) of the immediate (Imm)"
   },
   "decrement register (immediate)": {
     "prefix": "subi",
-    "body": ["SUBI ${1:Rd}, ${1}, #${2:Imt}", "$3"],
-    "description": "R[1] = R[1] - R[2]. Decrement one register (Rd) with the value (in bits) of the immediate (Imt)"
+    "body": ["SUBI ${1:Rd}, ${1}, #${2:Imm}", "$3"],
+    "description": "R[Rd] = R[Rd] - Imm. Decrement one register (Rd) with the value (in bits) of the immediate (Imm)"
   },
   "increment register": {
     "prefix": "add",
     "body": ["ADD ${1:Rd}, ${1}, ${2:Rm}", "$3"],
-    "description": "R[1] = R[1] + R[2]. Increment one register (Rd) with the value of another register (Rm)"
+    "description": "R[Rd] = R[Rd] + R[Rm]. Increment one register (Rd) with the value of another register (Rm)"
   },
   "decrement register": {
     "prefix": "sub",
     "body": ["SUB ${1:Rd}, ${1}, ${2:Rm}", "$3"],
-    "description": "R[1] = R[1] - R[2]. Decrement one register (Rd) with the value of another register (Rm)"
+    "description": "R[Rd] = R[Rd] - R[Rm]. Decrement one register (Rd) with the value of another register (Rm)"
   },
 
   "stack manipulation with 1 register": {
@@ -180,7 +180,7 @@
     "description": "Use this to save 8 registers in the Stack, including the return address of the procedure (where the procedure was called)"
   },
   "incremental for loop": {
-    "prefix": "for_incremental",
+    "prefix": "for_increasing",
     "body": [
       "${1:loop name}_loop:",
       "//comparing pointer to array length; if equal then exit",
@@ -196,7 +196,7 @@
     "description": "Creates a for loop from counter to upper_limit. for (; counter < upper_limit; counter += increment_amount); Note: the counter and array size must be initialized before the loop."
   },
   "decremental for loop": {
-    "prefix": "for_decremental",
+    "prefix": "for_decreasing",
     "body": [
       "${1:loop name}:",
       "//comparing pointer to 0; if equal then exit",
@@ -204,13 +204,12 @@
       "//loop body",
       " ",
       "// decrement pointer",
-      "SUBI $2, $2, #${4:Imt}",
+      "SUBI $2, $2, #${4:Imm}",
       "B $1",
       "${3}:"
     ],
     "description": "Creates a for loop from Counter to 0. Note: the counter must be initialized before the loop"
   },
-
   "return statement": {
     "prefix": "br",
     "body": ["BR LR"],
