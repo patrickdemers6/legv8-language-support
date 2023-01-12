@@ -2,27 +2,27 @@
   "set register": {
     "prefix": "sreg",
     "body": ["ADD ${1:Rd}, XZR, ${2:Rm}", "$3"],
-    "description": "R[Rd] = R[Rm]. Set one register (Rd) to the value of another (Rm)."
+    "description": "R[d] = R[m]. Set one register (Rd) to the value of another (Rm)."
   },
   "increment register (immediate)": {
     "prefix": "addi",
-    "body": ["ADDI ${1:Rd}, ${1}, #${2:Imm}", "$3"],
-    "description": "R[Rd] = R[Rd] + Imm. Increment the Rd register by the value of Imm."
+    "body": ["ADDI ${1:Rd}, ${1:Rd}, #${2:Imm}", "$3"],
+    "description": "R[Rd] = R[Rd] + Imm. Increment the Rd register by the value of Imm"
   },
   "decrement register (immediate)": {
     "prefix": "subi",
-    "body": ["SUBI ${1:Rd}, ${1}, #${2:Imm}", "$3"],
+    "body": ["SUBI ${1:Rd}, ${1:Rd}, #${2:Imm}", "$3"],
     "description": "R[Rd] = R[Rd] + Imm. Decrement the Rd register by the value of Imm."
   },
   "increment register": {
     "prefix": "add",
-    "body": ["ADD ${1:Rd}, ${1}, ${2:Rm}", "$3"],
-    "description": "R[Rd] = R[Rd] + R[Rm]. Increment one register (Rd) with the value of another register (Rm)"
+    "body": ["ADD ${1:Rd}, ${1:Rd}, ${2:Rm}", "$3"],
+    "description": "R[Rd] = R[Rd] + R[Rm]. Increment one register (Rd) with the value of another register (Rm)."
   },
   "decrement register": {
     "prefix": "sub",
-    "body": ["SUB ${1:Rd}, ${1}, ${2:Rm}", "$3"],
-    "description": "R[Rd] = R[Rd] - R[Rm]. Decrement one register (Rd) with the value of another register (Rm)"
+    "body": ["SUB ${1:Rd}, ${1:Rd}, ${2:Rm}", "$3"],
+    "description": "R[Rd] = R[Rd] - R[Rm]. Decrement one register (Rd) with the value of another register (Rm). "
   },
 
   "stack manipulation with 1 register": {
@@ -180,38 +180,37 @@
     "description": "Use this to save 8 registers in the Stack, including the return address of the procedure (where the procedure was called)"
   },
   "incremental for loop": {
-    "prefix": "for_increasing",
+    "prefix": "for_incremental",
     "body": [
-      "${1:loop name}:",
-      "// comparing counter to upper_limit; if equal then exit",
+      "${1:loop name}_loop:",
+      "//comparing counter to upper_limit; if equal then exit",
       "SUBS XZR, ${2:counter}, ${3:upper_limit}",
-      "B.GE ${1}_exit",
-      "// loop body",
+      "B.GE ${1}_loop_exit",
+      "//loop body",
       " ",
       "// increment counter ($2) by $4",
       "ADDI $2, $2, #${4:increment_amount}",
-      "B $1",
-      "${1}_exit:"
+      "B $1_loop",
+      "${1}_loop_exit:"
     ],
-    "description": "Creates a for loop from counter to upper_limit. for (counter = x; counter < upper_limit; counter += increment_amount); Note: the counter and upper limit must be initialized before the loop."
+    "description": "Creates a for loop that increments from counter to upper_limit. Equivalent In C: for (counter = <value>; counter < upper_limit; counter += increment_amount){ //loop body }. Note: the counter and upper_limit must be initialized before the loop"
   },
   "decremental for loop": {
-    "prefix": "for_decreasing",
+    "prefix": "for_decremental",
     "body": [
-      "${1:loop name}:",
-      "// comparing counter to 0; if less than, exit",
-      "SUBS XZR, ${2:counter}, XZR",
-      "B.LO ${1}_exit",
-      "// loop body",
+      "${1:loop name}_loop:",
+      "//comparing counter to 0; if equal then exit",
+      "CBZ ${2:counter}, ${1}_loop_exit",
+      "//loop body",
       " ",
       "// decrement counter",
-      "SUBI $2, $2, #${4:decrement_amount}",
-      "B $1",
-      "${1}_exit:",
-      ""
+      "SUBI $2, $2, #${3:decrement_amount}",
+      "B ${1}_loop",
+      "${1}_loop_exit:"
     ],
-    "description": "Creates a for loop from counter to 0. for (counter = x; counter >= 0; counter -= decrement_amount); Note: the counter must be initialized before the loop."
+    "description": "Creates a for loop that decrements from counter to 0. Equivalent in C: for (counter = <value>; counter > 0; counter --){ //loop body }. Note: the counter must be initialized before the loop"
   },
+
   "return statement": {
     "prefix": "br",
     "body": ["BR LR"],
