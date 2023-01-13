@@ -45,6 +45,12 @@
         "scopeName": "source.legv8",
         "path": "./syntaxes/legv8.tmLanguage.json"
       }
+    ],
+    "snippets": [
+      {
+        "language": "legv8",
+        "path": "./snippets/legv8.snippets.json"
+      }
     ]
   },
   "dependencies": {
